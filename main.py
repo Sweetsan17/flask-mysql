@@ -12,6 +12,14 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 
+class Student(db.Model):
+    id = db.Column(db.Integer, primary_key=True)  # Auto-increment primary key
+    name = db.Column(db.String(100), nullable=False)  # Required field
+    age = db.Column(db.Integer, nullable=False)  # Required field
+    email = db.Column(db.String(150), unique=True, nullable=False)  # Must be unique
+    gpa = db.Column(db.Float, nullable=True)
+
+
 @app.route("/")
 def home():
     return "Flask + MySQL Connected"
@@ -22,9 +30,10 @@ if __name__ == "__main__":
         with app.app_context():
             db.session.execute(text("SELECT 1"))
             print("SUCCESS: Database Connected Successfully")
+            db.create_all()
 
     except Exception as e:
-        print("ERROR: Database Connection Failed")
+        print("ERROR: {e}")
         print(e)
 
     app.run(debug=True)
