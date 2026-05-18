@@ -13,6 +13,7 @@ db = SQLAlchemy(app)
 
 
 class Student(db.Model):
+    __tablename__ = "students"
     id = db.Column(db.Integer, primary_key=True)  # Auto-increment primary key
     name = db.Column(db.String(100), nullable=False)  # Required field
     age = db.Column(db.Integer, nullable=False)  # Required field
