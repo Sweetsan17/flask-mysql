@@ -20,6 +20,18 @@ class Student(db.Model):
     gpa = db.Column(db.Float, nullable=True)
 
 
+class Course(db.Model):
+    __tablename__ = "courses"
+
+    id = db.Column(db.Integer, primary_key=True)  # Auto-increment primary key
+    course_name = db.Column(db.String(200), nullable=False)  # Required field
+    course_code = db.Column(
+        db.String(20), unique=True, nullable=False
+    )  # Must be unique
+    credits = db.Column(db.Integer, nullable=False)  # Required field
+    instructor = db.Column(db.String(100), nullable=True)  # Optional field
+
+
 @app.route("/")
 def home():
     return "Flask + MySQL Connected"
